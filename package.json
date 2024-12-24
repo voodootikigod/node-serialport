@@ -43,7 +43,7 @@
     "eslint": "9.17.0",
     "eslint-plugin-mocha": "10.5.0",
     "globals": "15.14.0",
-    "lerna": "7.4.2",
+    "lerna": "8.1.9",
     "lerna-changelog": "2.2.0",
     "mocha": "11.0.1",
     "nyc": "17.1.0",
