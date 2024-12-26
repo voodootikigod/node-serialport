@@ -791,6 +791,26 @@ describe('SerialPort', () => {
         })
       })
     })
+
+    describe('#destroy', () => {
+      it('calls close', done => {
+        const port = new SerialPortStream(openOpts)
+        port.on('close', () => done())
+        port.destroy()
+      })
+
+      it("doesn't open after destroy", done => {
+        const port = new SerialPortStream(openOpts)
+        port.on('open', () => {
+          port.destroy()
+          assert.isTrue(port.destroyed)
+          port.open(err => {
+            assert.instanceOf(err, Error)
+            done()
+          })
+        })
+      })
+    })
   })
 
   describe('reading data', () => {
