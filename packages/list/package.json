@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@serialport/bindings-cpp": "13.0.0",
-    "commander": "12.1.0"
+    "commander": "13.1.0"
   },
   "engines": {
     "node": ">=20.0.0"

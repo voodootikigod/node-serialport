@@ -12,7 +12,7 @@
   "dependencies": {
     "@serialport/bindings-cpp": "13.0.0",
     "@serialport/stream": "13.0.0",
-    "commander": "12.1.0",
+    "commander": "13.1.0",
     "enquirer": "2.4.1"
   },
   "engines": {
