@@ -148,6 +148,10 @@ export class SerialPortStream<T extends BindingInterface = BindingInterface> ext
    * @emits open
    */
   open(openCallback?: ErrorCallback): void {
+    if (this.destroyed) {
+      return this._asyncError(new Error('Port is already destroyed - it cannot be reopened'), openCallback)
+    }
+
     if (this.isOpen) {
       return this._asyncError(new Error('Port is already open'), openCallback)
     }
@@ -472,6 +476,30 @@ export class SerialPortStream<T extends BindingInterface = BindingInterface> ext
         return this._error(err, callback)
       },
     )
+  }
+
+  /**
+   * Implementation for Duplex._destroy. Disposes of underlying resources and forbids this port from being reopened
+   * @param err
+   * @param callback
+   */
+  _destroy(err: Error | null, callback: ErrorCallback) {
+    debug('_destroy')
+    if (this.port) {
+      debug('_destroy', 'releasing port')
+      this.port.close().then(
+        () => {
+          callback(err)
+        },
+        e => {
+          callback(e)
+        },
+      )
+      this.port = undefined
+    } else {
+      debug('_destroy', 'nothing to do; port has not been opened')
+      callback(err)
+    }
   }
 }
 
